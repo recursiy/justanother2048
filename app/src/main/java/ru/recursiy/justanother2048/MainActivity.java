@@ -3,6 +3,8 @@ package ru.recursiy.justanother2048;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.GestureDetector;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridView;
@@ -30,15 +32,6 @@ public class MainActivity extends AppCompatActivity implements GameStateObserver
         }
     }
 
-    private void initAdapter()
-    {
-        adapter = new GameAdapter(this, game.getField());
-
-        GridView field = (GridView) findViewById(R.id.field);
-        field.setNumColumns(game.getFieldSize());
-        field.setAdapter(adapter);
-    }
-
     @Override
     protected void onSaveInstanceState(Bundle outState)
     {
@@ -60,6 +53,23 @@ public class MainActivity extends AppCompatActivity implements GameStateObserver
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item)
+    {
+        if(item.getItemId() == R.id.restart)
+        {
+            restart();
+            return true;
+        }
+        return false;
+    }
+
     public void onScoresChanged(int scores)
     {
         ((TextView)findViewById(R.id.scores_value)).setText(((Integer)scores).toString());
@@ -76,6 +86,20 @@ public class MainActivity extends AppCompatActivity implements GameStateObserver
         }
     }
 
+    private void restart()
+    {
+        game.init(this);
+        initAdapter();
+    }
+
+    private void initAdapter()
+    {
+        adapter = new GameAdapter(this, game.getField());
+
+        GridView field = (GridView) findViewById(R.id.field);
+        field.setNumColumns(game.getFieldSize());
+        field.setAdapter(adapter);
+    }
 
     private void initGesture()
     {

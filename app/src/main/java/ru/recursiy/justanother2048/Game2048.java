@@ -44,7 +44,7 @@ public class Game2048  implements Parcelable {
 
     final Random random = new Random();
 
-    private int[][] field = new int[FieldSize][FieldSize];
+    private int[][] field;
     int oldScores, newScores;
 
     GameStateObserver observer;
@@ -55,6 +55,7 @@ public class Game2048  implements Parcelable {
 
     public void init(GameStateObserver observer)
     {
+        field = new int[FieldSize][FieldSize];
         int InitialRandomValuesCount = 3;
         makeRandomField(InitialRandomValuesCount);
         oldScores = newScores = 0;

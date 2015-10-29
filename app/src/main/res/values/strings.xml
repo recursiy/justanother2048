@@ -2,4 +2,6 @@
     <string name="app_name">Just Another 2048</string>
     <string name="game_over_message">Game over!</string>
     <string name="scores_label">Scores:</string>
+
+    <string name="restart_game">Restart</string>
 </resources>
