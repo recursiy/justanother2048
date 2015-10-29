@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Just Another 2048</string>
+    <string name="game_over_message">Игра окончена!</string>
+    <string name="scores_label">Очки:</string>
+
+    <string name="restart_game">Перезапустить</string>
+</resources>

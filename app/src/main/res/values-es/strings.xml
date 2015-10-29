@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Just Another 2048</string>
+    <string name="game_over_message">¡Fin del juego</string>
+    <string name="scores_label">Puntuaciones:</string>
+
+    <string name="restart_game">Reanudar</string>
+</resources>
