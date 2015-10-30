@@ -70,20 +70,34 @@ public class GameAdapter extends BaseAdapter {
                 color = R.color.color2;
                 break;
             case 8:
-            case 16:
                 color = R.color.color8;
                 break;
+            case 16:
+                color = R.color.color16;
+                break;
             case 32:
-            case 64:
                 color = R.color.color32;
                 break;
+            case 64:
+                color = R.color.color64;
+                break;
             case 128:
+                color = R.color.color128;
+                break;
             case 256:
+                color = R.color.color256;
+                break;
             case 512:
                 color = R.color.color128;
                 break;
-            default: //1024, 2048 and more
+            case 1024:
                 color = R.color.color1024;
+                break;
+            case 2048:
+                color = R.color.color2048;
+                break;
+            default: //4096 and more
+                color = R.color.color4096;
         }
         view.findViewById(R.id.field_background).setBackgroundResource(color);
         return view;
