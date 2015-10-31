@@ -11,7 +11,7 @@ import java.util.Random;
 interface GameStateObserver
 {
     enum Status {
-        OK, FINISHED
+        STARTED, FINISHED
     }
 
     /**
@@ -60,6 +60,7 @@ public class Game2048  implements Parcelable {
         makeRandomField(InitialRandomValuesCount);
         oldScores = newScores = 0;
         initObserver(observer);
+        observer.onStatusChanged(GameStateObserver.Status.STARTED);
     }
 
     public void initObserver(GameStateObserver observer)
@@ -136,10 +137,10 @@ public class Game2048  implements Parcelable {
                 i = random.nextInt(4);
                 j = random.nextInt(4);
             } while(field[i][j] != 0);
-            int value = random.nextInt(7);
-            if (value < 4) value = 2;
-            else if (value < 6) value = 4;
-            else value = 8;
+            int value = random.nextInt(100);
+            if (value < 66) value = 2;  //66% probability to "2" value
+            else if (value < 99) value = 4;  //33% probability to "4" value
+            else value = 8; //1 % probability to "8" value
             field[i][j] = value;
         }
         return zeroValuesFieldsCount - fieldCount;
@@ -201,7 +202,7 @@ public class Game2048  implements Parcelable {
             if (observer != null)
             {
                 observer.onMove();
-                if (zeroFieldsCount == 0)
+                if (zeroFieldsCount == 0 && !hasPossibleMove())
                 {
                     observer.onStatusChanged(GameStateObserver.Status.FINISHED);
                 }
@@ -293,4 +294,26 @@ public class Game2048  implements Parcelable {
         return moved;
     }
 
+    private boolean hasPossibleMove()
+    {
+        //this method suppose that there are no zero values at the field
+        //in normal using, this method will be called only if all values are not zero
+        for(int i=0; i<FieldSize; ++i)
+        {
+            for(int j=1; j<FieldSize; ++j)
+            {
+                if(field[i][j] == field[i][j-1])
+                    return true;
+            }
+        }
+        for(int j=0; j<FieldSize; ++j)
+        {
+            for(int i=1; i<FieldSize; ++i)
+            {
+                if(field[i][j] == field[i-1][j])
+                    return true;
+            }
+        }
+        return false;
+    }
 }
