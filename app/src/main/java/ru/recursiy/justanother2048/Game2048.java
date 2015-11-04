@@ -98,6 +98,7 @@ public class Game2048  implements Parcelable {
     public Game2048(Parcel parcel) {
         oldScores = parcel.readInt();
         newScores = parcel.readInt();
+        field = new int[FieldSize][FieldSize];
         for(int i=0; i<FieldSize; ++i)
         {
             parcel.readIntArray(field[i]);

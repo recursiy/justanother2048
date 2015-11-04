@@ -11,12 +11,10 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.concurrent.ExecutionException;
-
 public class MainActivity extends AppCompatActivity implements GameStateObserver {
 
     private GestureDetector gestureDetector;
-    private Game2048 game = new Game2048();
+    private Game2048 game;
     private final String GAME_KEY = "Game2048_Parcelable";
     GameAdapter adapter;
 
@@ -26,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements GameStateObserver
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
+            game = new Game2048();
             game.init(this);
             initAdapter();
             initGesture();
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements GameStateObserver
     @Override
     protected void onRestoreInstanceState(Bundle inState)
     {
-        super.onRestoreInstanceState(inState);
         game = inState.getParcelable(GAME_KEY);
         if (game == null)
             throw new UnknownError("Failed restore state");
